@@ -21,69 +21,50 @@ $doj=$_SESSION["doj"];
 $sp=$_SESSION["sp"];
 $dp=$_SESSION["dp"];
 $class=$_SESSION["class"];
+$id=$_SESSION["id"];
+$nos = $_SESSION["nos"];
+
+
+
+
 //echo "$tno $doj $class";
 
-$query="CALL calculate_fare($tno,$sp,$dp,$doj,$class)";
-$stmt = conn->prepare($query)
-$result=mysqli_query($conn,$query) or die(mysql_error());
 
-$row=mysqli_fetch_array($result);
-$fare=$row[0];
-#echo "$fare";
+$result=mysqli_query($conn,"CALL calculate_fares('$tno','$sp','$dp','$doj','$class','$id','$nos')") or die(mysql_error());
+
+$row= mysqli_fetch_array($result);
+$fare= $row[1];
+
+echo "Total fare is Rs.".$fare."/-";
+
+echo "<br><br>Reservation Successful";
+
+$rpnr=$row[0];
 
 
-$sql = "INSERT INTO resv(id,trainno,sp,dp,doj,tfare,class,nos) VALUES ('".$_SESSION["id"]."','".$_SESSION["tno"]."','".$_SESSION["sp"]."','".$_SESSION["dp"]."','".$_SESSION["doj"]."','".$fare."','".$_SESSION["class"]."','".$_SESSION["nos"]."' )";
+echo "<br><br>your pnr is".$rpnr."/-";
 
-if ($conn->query($sql) === TRUE) 
-{
- echo "<br><br>Reservation Successful";
-} 
-else 
-{
- echo "<br><br>Error: " . $conn->error;
-}
 
-$tid=$_SESSION["id"];
-$ttno=$_SESSION["tno"];
-$tdoj=$_SESSION["doj"];
 
-$query=" Select pnr from resv where id='".$tid."' AND trainno='".$ttno."' AND doj='".$tdoj."' ";
-$result=mysqli_query($conn,$query) or die(mysql_error());
+
 
 //echo "HI,here's your ticket details";
 //print_r($result);
 
-$row=mysqli_fetch_array($result);
-$rpnr=$row['pnr'];
-//echo " $rpnr ";
 
-$tpname=$_POST['pname'];
-//$ntpname = count($_REQUEST['pname']);
-$tpage=$_POST["page"];
-$tpgender=$_POST["pgender"];
 
-for($i=0;$i<$_SESSION["nos"];$i++) 
-{
-$sql = "INSERT INTO pd(pnr,pname,page,pgender) VALUES  ('".$rpnr."','".$tpname[$i]."','".$tpage[$i]."','".$tpgender[$i]."')";
-
-if ($conn->query($sql) === TRUE) 
-{
- echo "<br><br>Passenger details added!!!";
-} 
-else 
-{
- echo "<br><br>Error: " . $conn->error;
-}
 
 //echo "Enter Passanger Name: <input type='text' name='pname[]' required> ";
 //echo "Enter Passanger Age: <input type='text' name='page[]' required>";
 //echo "Enter Passanger Gender: <input type='text' name='pgender[]' required> <br> ";
-}
+
 
 echo "<br><br><a href=\"http://localhost/railway/index.htm\">Go Back!!!</a> <br>";
 
+
 $conn->close(); 
 ?>
+<a href="booked.php">click to know for further booking</a>
 
 </body>
 </html>

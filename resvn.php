@@ -35,12 +35,18 @@ $temp=$row['id'];
 //echo $temp;
 //echo $_SESSION["doj"];
 $_SESSION["id"] = "$temp";
+$_SESSION["tid"] = "$temp";
 $tno=$_POST["tno"];
 $_SESSION["tno"] = "$tno";
 $class=$_POST["class"];
 $_SESSION["class"] = "$class";
 $nos=$_POST["nos"];
 $_SESSION["nos"] = "$nos";
+$doj=$_SESSION["doj"];
+$sp=$_SESSION["sp"];
+$dp=$_SESSION["dp"];
+
+
 
 echo "<table>";
 
@@ -52,6 +58,7 @@ echo "<td><input type='text' name='pgender[]' placeholder=\"Passenger Gender\" r
 }
 
 echo "</table>";
+
 
 //Enter Train No: <input type="text" name="tno" required><br>
 //Enter Class: <input type="text" name="class" required><br>

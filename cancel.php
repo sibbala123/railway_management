@@ -14,6 +14,7 @@ require "db.php";
 
 $pnr=$_POST["cancpnr"];
 $uid=$_SESSION["id"];
+
 //echo "$uid";
 
 $sql=" UPDATE resv SET status ='CANCELLED' WHERE resv.pnr='".$pnr."' AND resv.id='".$uid."' ";

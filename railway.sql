@@ -29,8 +29,16 @@ SET time_zone = "+00:00";
 -- stored procedures
 DELIMITER $$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `calculate_fare` (In `tno` int(11), IN `sp` varchar(50),IN `dp` varchar(50), IN `doj` DATE, IN `class` varchar(10))  BEGIN
- SELECT fare FROM classseats as c WHERE c.trainno= tno AND c.class= class AND c.doj= doj AND c.sp= sp AND c.dp= dp;  
+CREATE DEFINER=`root`@`localhost` PROCEDURE `calculate_fare` (In `tno` int(11), IN `sp` varchar(50),IN `dp` varchar(50), IN `doj` DATE, IN `class` varchar(10), IN `id` int(11) NOT NULL, IN  `nos` int(11) NOT NULL)  
+BEGIN
+DECLARE @n int = 0
+INSERT INTO resv(trainno,sp,dp,doj,class,id,nos,tfare) VALUES (tno,sp,dp,doj,class,id,nos,(SELECT fare FROM classseats as c WHERE c.trainno= tno AND c.class= class AND c.doj= doj AND c.sp= sp AND c.dp= dp) ) ;
+
+Select pnr,fare from resv as r,classseats as c where r.id=id AND r.trainno=tno AND r.doj=doj AND c.trainno= tno AND c.class= class AND c.doj= doj AND c.sp= sp AND c.dp= dp 
+GROUP BY pnr,fare;
+
+
+
 END$$
 
 CREATE TABLE IF NOT EXISTS `canc` (
@@ -95,36 +103,36 @@ CREATE TABLE IF NOT EXISTS `classseats` (
 --
 
 INSERT INTO `classseats` (`trainno`, `sp`, `dp`, `doj`, `class`, `fare`, `seatsleft`) VALUES
-(12, 'Chandigarh', 'Jaipur', '2015-05-07', 'AC1', 2200, 107),
-(12, 'Chandigarh', 'Jaipur', '2015-05-17', 'AC1', 3200, 20),
-(12, 'Chandigarh', 'Jaipur', '2015-05-17', 'AC3', 2400, 60),
-(12, 'Chandigarh', 'Jaipur', '2015-05-17', 'EC', 1200, 100),
-(12, 'Chandigarh', 'Jaipur', '2015-05-17', 'SL', 500, 200),
-(12, 'Jaipur', 'Kolkata', '2015-05-07', 'AC1', 1434, 243),
-(12, 'Jaipur', 'Kolkata', '2015-05-17', 'AC1', 2900, 15),
-(12, 'Jaipur', 'Kolkata', '2015-05-17', 'AC3', 2100, 40),
-(12, 'Jaipur', 'Kolkata', '2015-05-17', 'EC', 1500, 120),
-(12, 'Jaipur', 'Kolkata', '2015-05-17', 'SL', 800, 250),
-(12, 'Kolkata', 'Lucknow', '2015-05-07', 'AC1', 934, 322),
-(12, 'Kolkata', 'Lucknow', '2015-05-17', 'AC1', 3100, 30),
-(12, 'Kolkata', 'Lucknow', '2015-05-17', 'AC3', 1900, 30),
-(12, 'Kolkata', 'Lucknow', '2015-05-17', 'EC', 1700, 150),
-(12, 'Kolkata', 'Lucknow', '2015-05-17', 'SL', 700, 220),
-(12, 'Lucknow', 'Delhi', '2015-05-07', 'AC1', 344, 326),
-(12, 'Lucknow', 'Delhi', '2015-05-17', 'AC1', 2750, 20),
-(12, 'Lucknow', 'Delhi', '2015-05-17', 'AC3', 2350, 60),
-(12, 'Lucknow', 'Delhi', '2015-05-17', 'EC', 1100, 118),
-(12, 'Lucknow', 'Delhi', '2015-05-17', 'SL', 900, 180),
-(18, 'Chandigarh', 'Jaipur', '2015-05-12', 'AC1', 2420, 50),
-(18, 'Chandigarh', 'Jaipur', '2015-05-12', 'AC3', 1700, 20),
-(18, 'Chandigarh', 'Jaipur', '2015-05-12', 'CC', 750, 120),
-(18, 'Jaipur', 'Delhi', '2015-05-12', 'AC1', 2750, 20),
-(18, 'Jaipur', 'Delhi', '2015-05-12', 'AC3', 1200, 20),
-(18, 'Jaipur', 'Delhi', '2015-05-12', 'CC', 900, 150),
-(20, 'Delhi', 'Jaipur', '2015-05-09', 'AC1', 4500, 20),
-(20, 'Delhi', 'Jaipur', '2015-05-09', 'AC2', 3200, 50),
-(20, 'Delhi', 'Jaipur', '2015-05-09', 'AC3', 2700, 50),
-(20, 'Delhi', 'Jaipur', '2015-05-09', 'SL', 900, 300);
+(12, 'Chandigarh', 'Jaipur', '2021-05-07', 'AC1', 2200, 107),
+(12, 'Chandigarh', 'Jaipur', '2021-05-17', 'AC1', 3200, 20),
+(12, 'Chandigarh', 'Jaipur', '2021-05-17', 'AC3', 2400, 60),
+(12, 'Chandigarh', 'Jaipur', '2021-05-17', 'EC', 1200, 100),
+(12, 'Chandigarh', 'Jaipur', '2021-05-17', 'SL', 500, 200),
+(12, 'Jaipur', 'Kolkata', '2021-05-07', 'AC1', 1434, 243),
+(12, 'Jaipur', 'Kolkata', '2021-05-17', 'AC1', 2900, 15),
+(12, 'Jaipur', 'Kolkata', '2021-05-17', 'AC3', 2100, 40),
+(12, 'Jaipur', 'Kolkata', '2021-05-17', 'EC', 1500, 120),
+(12, 'Jaipur', 'Kolkata', '2021-05-17', 'SL', 800, 250),
+(12, 'Kolkata', 'Lucknow', '2021-05-07', 'AC1', 934, 322),
+(12, 'Kolkata', 'Lucknow', '2021-05-17', 'AC1', 3100, 30),
+(12, 'Kolkata', 'Lucknow', '2021-05-17', 'AC3', 1900, 30),
+(12, 'Kolkata', 'Lucknow', '2021-05-17', 'EC', 1700, 150),
+(12, 'Kolkata', 'Lucknow', '2021-05-17', 'SL', 700, 220),
+(12, 'Lucknow', 'Delhi', '2021-05-07', 'AC1', 344, 326),
+(12, 'Lucknow', 'Delhi', '2021-05-17', 'AC1', 2750, 20),
+(12, 'Lucknow', 'Delhi', '2021-05-17', 'AC3', 2350, 60),
+(12, 'Lucknow', 'Delhi', '2021-05-17', 'EC', 1100, 118),
+(12, 'Lucknow', 'Delhi', '2021-05-17', 'SL', 900, 180),
+(18, 'Chandigarh', 'Jaipur', '2021-05-12', 'AC1', 2420, 50),
+(18, 'Chandigarh', 'Jaipur', '2021-05-12', 'AC3', 1700, 20),
+(18, 'Chandigarh', 'Jaipur', '2021-05-12', 'CC', 750, 120),
+(18, 'Jaipur', 'Delhi', '2021-05-12', 'AC1', 2750, 20),
+(18, 'Jaipur', 'Delhi', '2021-05-12', 'AC3', 1200, 20),
+(18, 'Jaipur', 'Delhi', '2021-05-12', 'CC', 900, 150),
+(20, 'Delhi', 'Jaipur', '2021-05-09', 'AC1', 4500, 20),
+(20, 'Delhi', 'Jaipur', '2021-05-09', 'AC2', 3200, 50),
+(20, 'Delhi', 'Jaipur', '2021-05-09', 'AC3', 2700, 50),
+(20, 'Delhi', 'Jaipur', '2021-05-09', 'SL', 900, 300);
 
 --
 -- Triggers `classseats`
@@ -171,59 +179,13 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pd` passenger details
---
-
-CREATE TABLE IF NOT EXISTS `pd` (
-  `pnr` int(11) NOT NULL,
-  `pname` varchar(50) NOT NULL,
-  `page` int(11) NOT NULL,
-  `pgender` varchar(10) NOT NULL,
-  PRIMARY KEY (`pnr`,`pname`,`page`,`pgender`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pd`
---
 
-INSERT INTO `pd` (`pnr`, `pname`, `page`, `pgender`) VALUES
-(58, 'akhil', 20, 'M'),
-(58, 'deepak', 21, 'M'),
-(58, 'rahul', 12, 'M'),
-(58, 'shyam', 50, 'M'),
-(59, 'abhinav', 20, 'M'),
-(59, 'vikas', 40, 'M'),
-(60, 'mohan', 20, 'M');
 
 --
--- Triggers `pd`
---
-DROP TRIGGER IF EXISTS `before_insert_on_pd`;
-DELIMITER //
-CREATE TRIGGER `before_insert_on_pd` BEFORE INSERT ON `pd`
- FOR EACH ROW begin
-if new.pgender NOT IN ('M','F') then
-SIGNAL SQLSTATE '45000'
-SET MESSAGE_TEXT = 'Enter M:Male F:Female.';
-end if;
-end
-//
-DELIMITER ;
-DROP TRIGGER IF EXISTS `before_update_on_pd`;
-DELIMITER //
-CREATE TRIGGER `before_update_on_pd` BEFORE UPDATE ON `pd`
- FOR EACH ROW begin
-if new.pgender NOT IN ('M','F') then
-SIGNAL SQLSTATE '45000'
-SET MESSAGE_TEXT = 'Enter M:Male F:Female.';
-end if;
-end
-//
-DELIMITER ;
 
--- --------------------------------------------------------
 
---
 -- Table structure for table `resv`
 --
 
@@ -299,14 +261,11 @@ if new.tfare<0 then
 SIGNAL SQLSTATE '45000'
 SET MESSAGE_TEXT = 'Negative balance NOT possible';
 end if;
-if new.nos<=0 then
+if new.nos<0 then
 SIGNAL SQLSTATE '45000'
 SET MESSAGE_TEXT = 'Negative OR 0 seats NOT possible';
 end if;
-if (select seatsleft from classseats where trainno=new.trainno AND class=new.class AND doj=new.doj AND sp=new.sp AND dp=new.dp) < new.nos then 
-SIGNAL SQLSTATE '45000'
-SET MESSAGE_TEXT = 'Not enough seats available!!!';
-end if;
+
 if datediff(new.doj,curdate())<0 then
 SIGNAL SQLSTATE '45000'
 SET MESSAGE_TEXT = 'Booking Not Possible!!!!';
@@ -327,10 +286,7 @@ if new.nos<=0 then
 SIGNAL SQLSTATE '45000'
 SET MESSAGE_TEXT = 'Negative OR 0 seats NOT possible';
 end if;
-if (select seatsleft from classseats where trainno=new.trainno AND class=new.class AND doj=new.doj AND sp=new.sp AND dp=new.dp) < new.nos then 
-SIGNAL SQLSTATE '45000'
-SET MESSAGE_TEXT = 'Not enough seats available!!!';
-end if;
+
 end
 //
 DELIMITER ;
