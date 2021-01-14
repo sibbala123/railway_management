@@ -1,26 +1,31 @@
-html>
+<html>
 	<head>
 		<link rel="stylesheet" href="CSS/styles.css" />
 	</head>
-	<body class="user_login_class">
+	<body class="admin_class">
 		<div class="container">
-			<form action="user_login.php" method="post" class="form">
-				<h1>Enter The Details:</h1>
-				<div class="form-control">
-					<label for="phone_number">Registered Phone Number</label>
-					<input type="text" id="user_id" placeholder="Enter Phone Number" />
-				</div><
-				<div class="form-control">
-					<label for="password">Password</label>
-					<input type="text" id="user_id" placeholder="Enter Password" />
-				</div>
+			<div class="form">
+				<form action="admin_login.php" method="post">
+                    <h1>Enter The Admin Details</h1>
+					<div class="form-control">
+                        
+                        <label for="user_id">User ID</label>
+                        <input type="text" id="user_id" placeholder="Enter Username">
+                    </div>
+                    <div class="form-control">
+                        
+                        <label for="user_id">Password</label>
+                        <input type="text" id="user_id" placeholder="Enter Username">
+                    </div>
+                         
+                    <div class="home-link">
+                        <a href="index.htm">Home Page</a>
+                    </div>
 
-				<button type="submit">Log In</button>
-
-				<div class="home-link">
-					<a href="index.htm">Home Page</a>
-				</div>
-			</form>
+						
+					</div>
+				</form>
+			</div>
 		</div>
 	</body>
 </html>
