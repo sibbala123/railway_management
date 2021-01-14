@@ -1,23 +1,43 @@
 <html>
-<body style=" background-image: url(userlogin.png);
-    height: 100%; 
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;" >
+	<head>
+		<link rel="stylesheet" href="CSS/styles.css" />
+	</head>
+	<body class="new_user_class">
+		<div class="container">
+			<form action="new_user_form.php" method="post" class="form">
+				<h1>Kindly Enter Your Credentials!!!</h1>
 
-<form action="new_user_form.php" method="post">
-<div align="center">
-Kindly enter your credentials!!!<br><br>
-Password: <input type="password" name="password" required><br><br>
-E-mail ID: <input type="text" name="emailid" required><br><br>
-Mobile No.: <input type="text" name="mobileno" required><br><br>
-dob: <input type="date" name="dob" required><br><br>
+				<div class="form-control">
+					<label for="email">Email</label>
+					<input type="text" id="user_id" placeholder="Enter Email" />
+				</div>
+				<div class="form-control">
+					<label for="password">Password</label>
+					<input type="text" id="password" placeholder="Enter Password" />
+				</div>
+				<div class="form-control">
+					<label for="phone_number">Phone Number</label>
+					<input
+						type="text"
+						id="phone_number"
+						placeholder="Enter Phone Number"
+					/>
+				</div>
+				<div class="form-control">
+					<label for="phone_number">DOB</label>
+					<input
+						type="date"
+						id="phone_number"
+						placeholder="Enter Phone Number"
+					/>
+				</div>
 
-<input type="submit" value="Save"><br><br>
+				<button type="submit">Submit</button>
 
-<a href="index.htm">Home Page</a>
-</div>
-</form>
-
-</body>
+				<div class="home-link">
+					<a href="index.htm">Home Page</a>
+				</div>
+			</form>
+		</div>
+	</body>
 </html>
