@@ -1,25 +1,26 @@
-<html>
-<body style=" background-image: url(userlogin.png);
-    height: 100%; 
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;" >
+html>
+	<head>
+		<link rel="stylesheet" href="CSS/styles.css" />
+	</head>
+	<body class="user_login_class">
+		<div class="container">
+			<form action="user_login.php" method="post" class="form">
+				<h1>Enter The Details:</h1>
+				<div class="form-control">
+					<label for="phone_number">Registered Phone Number</label>
+					<input type="text" id="user_id" placeholder="Enter Phone Number" />
+				</div><
+				<div class="form-control">
+					<label for="password">Password</label>
+					<input type="text" id="user_id" placeholder="Enter Password" />
+				</div>
 
-<form action="user_login.php" method="post">
-<div align="center">
-Enter the details:<br><br>
-Registered Mobile No: <input type="text" name="mno" required><br><br>
-Password: <input type="password" name="password" required><br><br>
+				<button type="submit">Log In</button>
 
-<input type="submit" value="Login">
-
-
-
-<br><br><a href="index.htm">Home Page</a>
-
-
-</div>
-</form>
-
-</body>
+				<div class="home-link">
+					<a href="index.htm">Home Page</a>
+				</div>
+			</form>
+		</div>
+	</body>
 </html>
